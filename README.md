@@ -3,16 +3,17 @@
 ## A Javascript wrapper for the discordbotlist.com API
 <a href="https://www.npmjs.com/package/botlister"><img src="https://img.shields.io/npm/v/botlister.svg?maxAge=3600" alt="NPM version" /></a><a href="https://www.npmjs.com/package/botlister"><img src="https://img.shields.io/npm/dt/botlister.svg?maxAge=3600" alt="NPM downloads" /></a><a href="https://david-dm.org/wr1ght/botlister"><img src="https://img.shields.io/david/wr1ght/botlister.svg?maxAge=3600" alt="Dependencies" /></a>
 
+###### This is a zero-dependency package.
+
 ### Contents
 
 * [How to use](#how-to-use)
-
 * [License](#license)
 
 ------------------
 
 #### How to use
-This is a zero-dependency package.
+
 ##### Step One: Getting an API token for your bot
 
 Go to [your bots page](https://discordbotlist.com/bots/mine) and select one of your bots, then click **generate token**
@@ -24,7 +25,7 @@ Go to [your bots page](https://discordbotlist.com/bots/mine) and select one of y
 * `userToken`: (optional) The token of your Discord Bot List account
 * `defaultBotId`: (optional) The default bot ID to use when calling bot-related requests
 
-**Example:**
+###### Example
 ```js
     const BLister = require('botlister');
     const botlister = new BLister({
