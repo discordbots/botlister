@@ -25,7 +25,7 @@ Go to [your bots page](https://discordbotlist.com/bots/mine) and select one of y
 * `defaultBotId`: (optional) The default bot ID to use when calling bot-related requests
 
 **Example:**
-```
+```js
     const BLister = require('botlister);
     const botlister = new BLister({
         apiToken: 'memes',
@@ -41,7 +41,7 @@ Go to [your bots page](https://discordbotlist.com/bots/mine) and select one of y
 ###### Authorization required: no
 
 This function returns an array of all bots. Use lightly.
-```
+```js
     botlister.fetchAllBots().then(console.log);
     // RETURNS [... <Bot Object> ]
 ```
@@ -51,7 +51,7 @@ This function returns an array of all bots. Use lightly.
 ###### If no ID is supplied it will default to the defaultBotId
 
 This function returns bot information.
-```
+```js
     botlister.fetchBot('371840836423385101').then(console.log);
     // RETURNS <Bot Object>
 
@@ -64,7 +64,7 @@ This function returns bot information.
 ###### Authorization required: no
 
 This function returns bot statistics.
-```
+```js
     botlister.fetchBotStatistics('371840836423385101').then(console.log);
     // RETURNS <Bot Object>.stats
 
@@ -78,7 +78,7 @@ This function returns bot statistics.
 
 This function updates bot statistics.
 See the official [API documentation](https://discordbotlist.com/api-docs) for fields.
-```
+```js
     botlister.updateBotStatistics('371840836423385101', { users: 1337 }).then(console.log);
     // RETURNS nothing
 
@@ -93,7 +93,7 @@ See the official [API documentation](https://discordbotlist.com/api-docs) for fi
 
 This function resets all bot statistics.
 See the official [API documentation](https://discordbotlist.com/api-docs) for more information.
-```
+```js
     botlister.resetBotStatistics('371840836423385101').then(console.log);
     // RETURNS nothing
 
@@ -107,7 +107,7 @@ See the official [API documentation](https://discordbotlist.com/api-docs) for mo
 ###### Authorization required: yes (`userToken`)
 
 This function deletes the bot from Discord Bot List
-```
+```js
     botlister.deleteBot('371840836423385101').then(console.log);
     // RETURNS nothing
 
@@ -121,7 +121,7 @@ This function deletes the bot from Discord Bot List
 ###### Authorization required: yes (`userToken`)
 
 This function upvotes a bot
-```
+```js
     botlister.upvoteBot('371840836423385101').then(console.log);
     // RETURNS nothing
 
@@ -134,7 +134,7 @@ This function upvotes a bot
 ###### Authorization required: no
 
 This function returns user information
-```
+```js
     botlister.fetchUser('392470264136597516').then(console.log);
     // RETURNS <User Object>
 ```
@@ -143,7 +143,7 @@ This function returns user information
 ###### Authorization required: no
 
 This function returns an array of user's bots
-```
+```js
     botlister.fetchUserBots('392470264136597516').then(console.log);
     // RETURNS [ ... <Bot Object>]
 ```
