@@ -46,6 +46,7 @@ This function returns an array of all bots. Use lightly.
     // RETURNS [... <Bot Object> ]
 ```
 
+
 ##### `fetchBot(id)`
 ###### Authorization required: no
 ###### If no ID is supplied it will default to the defaultBotId
@@ -59,6 +60,7 @@ This function returns bot information.
     // RETURNS <Bot Object> for defaultBotId
 ```
 
+
 ##### `fetchBotStatistics(id)`
 ###### If no ID is supplied it will default to the defaultBotId
 ###### Authorization required: no
@@ -71,6 +73,7 @@ This function returns bot statistics.
     botlister.fetchBotStatistics().then(console.log);
     // RETURNS <Bot Object>.stats for defaultBotId
 ```
+
 
 ##### `updateBotStatistics(id, statistics)`
 ###### If no ID is supplied it will default to the defaultBotId
@@ -87,6 +90,7 @@ See the official [API documentation](https://discordbotlist.com/api-docs) for fi
     // RETURNS nothing
 ```
 
+
 ##### `resetBotStatistics(id)`
 ###### If no ID is supplied it will default to the defaultBotId
 ###### Authorization required: yes (`apiToken`)
@@ -102,6 +106,7 @@ See the official [API documentation](https://discordbotlist.com/api-docs) for mo
     // RETURNS nothing
 ```
 
+
 ##### `deleteBot(id)`
 ###### If no ID is supplied it will default to the defaultBotId
 ###### Authorization required: yes (`userToken`)
@@ -115,6 +120,7 @@ This function deletes the bot from Discord Bot List
     // ID defaults to defaultBotId
     // RETURNS nothing
 ```
+
 
 ##### `upvoteBot(id)`
 ###### If no ID is supplied it will default to the defaultBotId
@@ -130,6 +136,7 @@ This function upvotes a bot
     // RETURNS nothing
 ```
 
+
 ##### `fetchUser(id)`
 ###### Authorization required: no
 
@@ -138,6 +145,7 @@ This function returns user information
     botlister.fetchUser('392470264136597516').then(console.log);
     // RETURNS <User Object>
 ```
+
 
 ##### `fetchUserBots(id)`
 ###### Authorization required: no
@@ -148,12 +156,10 @@ This function returns an array of user's bots
     // RETURNS [ ... <Bot Object>]
 ```
 
+
 #### License
-
-This repository has been released under the MIT license.
-------------------
-
-<p>Repo maintained by Wright (wr1ght)
-Contact me on Discord: wright#0666</p>
+##### This repository has been released under the MIT license.
+##### Repo maintained by Wright (wr1ght)
+##### Contact me on Discord: wright#0666
 
  
