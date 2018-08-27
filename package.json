@@ -1,0 +1,26 @@
+{
+  "name": "botlister",
+  "version": "1.0.0",
+  "description": "A wrapper for the discordbotlist.com API",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wr1ght/botlister.git"
+  },
+  "keywords": [
+    "dbl",
+    "discordbotlist",
+    "discord-bot-list",
+    "botlist"
+  ],
+  "author": "Wright <delwrig@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wr1ght/botlister/issues"
+  },
+  "homepage": "https://github.com/wr1ght/botlister#readme",
+  "dependencies": {}
+}
