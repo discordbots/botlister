@@ -33,7 +33,6 @@ class Core {
             id = this.defaultBotId
         };
         if (!id) throw new Error('No ID was supplied');
-
         const response = await this.https.post({
             url: endpoints.BOT_STATISTICS(id),
             data: statistics,
@@ -45,7 +44,6 @@ class Core {
     async resetBotStatistics(id = this.defaultBotId) {
         if (!this.apiToken) throw new Error('No API token was supplied');
         if (!id) throw new Error('No ID was supplied');
-
         const response = await this.https.delete({ url: endpoints.BOT_STATISTICS(id), authorization: `Bot ${this.apiToken}` });
         return response;
     }
@@ -53,7 +51,6 @@ class Core {
     async deleteBot(id = this.defaultBotId) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-
         const response = await this.https.delete({ url: endpoints.FETCH_BOT(id), authorization: `Bearer ${this.userToken}` });
         return response;
     }
