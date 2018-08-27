@@ -26,7 +26,7 @@ Go to [your bots page](https://discordbotlist.com/bots/mine) and select one of y
 
 **Example:**
 ```js
-    const BLister = require('botlister);
+    const BLister = require('botlister');
     const botlister = new BLister({
         apiToken: 'memes',
         defaultBotId: '371840836423385101'
