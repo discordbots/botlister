@@ -4,7 +4,7 @@
 
 [![Dependency Status](https://img.shields.io/david/discordbots/botlister.svg?style=flat-square)](https://david-dm.org/discordbots/botlister)
 [![Known Vulnerabilities](https://snyk.io/test/npm/botlister/badge.svg?style=flat-square)](https://snyk.io/test/npm/botlister)
-[![Discord](https://img.shields.io/discord/450100127256936458.svg)](https://discord.gg/hCZwQWc)
+[![Discord](https://img.shields.io/discord/450100127256936458.svg?style=flat-square)](https://discord.gg/hCZwQWc)
 
 
 ## Super simple to use
