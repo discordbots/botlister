@@ -1,166 +1,217 @@
+# Botlister - Javascript API wrapper for discordbotlist.com
 
-# Botlister
-## A Javascript wrapper for the discordbotlist.com API
-<a href="https://www.npmjs.com/package/botlister"><img src="https://img.shields.io/npm/v/botlister.svg?maxAge=3600" alt="NPM version" /></a><a href="https://www.npmjs.com/package/botlister"><img src="https://img.shields.io/npm/dt/botlister.svg?maxAge=3600" alt="NPM downloads" /></a><a href="https://david-dm.org/discordbots/botlister"><img src="https://img.shields.io/david/discordbots/botlister.svg?maxAge=3600" alt="Dependencies" /></a>
+[![npm package](https://nodei.co/npm/botlister.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/botlister/)
 
-###### This is a zero-dependency package.
+[![Coverage](https://img.shields.io/coveralls/discordbots/botlister.svg?style=flat-square)](https://coveralls.io/r/discordbots/botlister)
+[![Dependency Status](https://img.shields.io/david/discordbots/botlister.svg?style=flat-square)](https://david-dm.org/discordbots/botlister)
+[![Known Vulnerabilities](https://snyk.io/test/npm/botlister/badge.svg?style=flat-square)](https://snyk.io/test/npm/botlister)
+[![Discord](https://img.shields.io/discord/450100127256936458.svg)](https://discord.gg/hCZwQWc)
 
-### Contents
 
-* [How to use](#how-to-use)
-* [License](#license)
+## Super simple to use
 
-------------------
+Botlister is an easy to use, zero-dependency wrapper for the discordbotlist.com API
 
-#### How to use
-
-##### Step One: Getting an API token for your bot
-
-Go to [your bots page](https://discordbotlist.com/bots/mine) and select one of your bots, then click **generate token**
-
-###### optional: find and get your account token to use functions such as `upvoteBot` and `deleteBot`
-
-##### Step Two: Integrate the package into your application
-* `apiToken` : (optional) The token of your Discord Bot List bot
-* `userToken`: (optional) The token of your Discord Bot List account
-* `defaultBotId`: (optional) The default bot ID to use when calling bot-related requests
-
-###### Example
 ```js
-    const BLister = require('botlister');
-    const botlister = new BLister({
-        apiToken: 'memes',
-        defaultBotId: '371840836423385101'
-    });
-    botlister.fetchBot().then(console.log);
-```
-  
-
-#### Documentation
-
-##### `fetchAllBots()`
-###### Authorization required: no
-
-This function returns an array of all bots. Use lightly.
-```js
-    botlister.fetchAllBots().then(console.log);
-    // RETURNS [... <Bot Object> ]
+const botlister = new (require('botlister'))({ apiToken: 'abcdef', defaultBotId: '371840836423385101' })
+botlister.updateBotStatistics({
+    guilds: bot.guilds.size,
+    users: bot.users.size,
+}).catch(console.error);
 ```
 
 
-##### `fetchBot(id)`
-###### Authorization required: no
-###### If no ID is supplied it will default to the defaultBotId
+## Table of contents
 
-This function returns bot information.
+- [Examples](#examples)
+- [Options](#options)
+- [Getting a API token](#getting-an-api-token)
+- [Methods](#methods)
+
+
+
+---
+
+
+## Examples
+
+Need an example?
+Check out the [example folder](https://github.com/discordbots/botlister/tree/master/examples)
+
+[back to top](#table-of-contents)
+
+
+---
+
+## Options
+### new Botlister(options)
+
+- `apiToken` - (optional) The token of your Discord Bot List bot
+- `userToken` - (optional) The token of your Discord Bot List account
+- `defaultBotId` - (optional) The default bot ID to use when calling bot-related requests
+
+[back to top](#table-of-contents)
+
+---
+
+## Getting an API token
+
+Go to [your bots page](https://discordbotlist.com/bots/mine) and select one of your bots, then click `generate token`
+
+[back to top](#table-of-contents)
+
+---
+
+## Methods
+
+#### fetchBots()
+
+- *Authorization*: none.
+Returns an array of all bots listed (use lightly)
+
 ```js
-    botlister.fetchBot('371840836423385101').then(console.log);
-    // RETURNS <Bot Object>
-
-    botlister.fetchBot().then(console.log);
-    // RETURNS <Bot Object> for defaultBotId
+botlister.fetchAllBots()
+    .then(console.log)
+    .catch(console.error)
+    // return [ ... { id: "371840836423385101", ...etc } ]
 ```
 
+#### fetchBot(`id`)
 
-##### `fetchBotStatistics(id)`
-###### If no ID is supplied it will default to the defaultBotId
-###### Authorization required: no
+- *Authorization*: none.
+- *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
 
-This function returns bot statistics.
+Returns bot information for the inputted bot id
+
 ```js
-    botlister.fetchBotStatistics('371840836423385101').then(console.log);
-    // RETURNS <Bot Object>.stats
-
-    botlister.fetchBotStatistics().then(console.log);
-    // RETURNS <Bot Object>.stats for defaultBotId
+botlister.fetchBot('371840836423385101')
+    .then(console.log)
+    .catch(console.error)
+    // returns { id: "371840836423385101", ...etc }
 ```
 
+#### fetchBotStatistics(`id`)
 
-##### `updateBotStatistics(id, statistics)`
-###### If no ID is supplied it will default to the defaultBotId
-###### Authorization required: yes (`apiToken`)
+- *Authorization*: none.
+- *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
 
-This function updates bot statistics.
-See the official [API documentation](https://discordbotlist.com/api-docs) for fields.
+Returns bot statistics for the inputted bot id
+
 ```js
-    botlister.updateBotStatistics('371840836423385101', { users: 1337 }).then(console.log);
-    // RETURNS nothing
-
-    botlister.updateBotStatistics({ users: 1337 }).then(console.log);
-    // ID defaults to defaultBotId
-    // RETURNS nothing
+botlister.fetchBotStatistics('371840836423385101')
+    .then(console.log)
+    .catch(console.error)
+    // returns { guilds: 571, ...etc }
 ```
 
+#### updateBotStatistics(`id`, `statistics`)
 
-##### `resetBotStatistics(id)`
-###### If no ID is supplied it will default to the defaultBotId
-###### Authorization required: yes (`apiToken`)
+- *Authorization*: requires an `apiToken`.
+- *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
 
-This function resets all bot statistics.
-See the official [API documentation](https://discordbotlist.com/api-docs) for more information.
+Updates bot statistics
+See the [official API documentation](https://discordbotlist.com/api-docs) for more information & fields.
+
 ```js
-    botlister.resetBotStatistics('371840836423385101').then(console.log);
-    // RETURNS nothing
-
-    botlister.resetBotStatistics().then(console.log);
-    // ID defaults to defaultBotId
-    // RETURNS nothing
+botlister.updateBotStatistics('371840836423385101', { guilds: 600 })
+    .then(console.log)
+    .catch(console.error)
+    // returns nothing
 ```
 
+#### resetBotStatistics(`id`)
 
-##### `deleteBot(id)`
-###### If no ID is supplied it will default to the defaultBotId
-###### Authorization required: yes (`userToken`)
+- *Authorization*: requires an `apiToken`.
+- *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
 
-This function deletes the bot from Discord Bot List
+Completely resets bot statistics
+See the [official API documentation](https://discordbotlist.com/api-docs) for more information.
+
 ```js
-    botlister.deleteBot('371840836423385101').then(console.log);
-    // RETURNS nothing
-
-    botlister.deleteBot().then(console.log);
-    // ID defaults to defaultBotId
-    // RETURNS nothing
+botlister.resetBotStatistics('371840836423385101')
+    .then(console.log)
+    .catch(console.error)
+    // returns nothing
 ```
 
+#### fetchUpvotes(`id`)
 
-##### `upvoteBot(id)`
-###### If no ID is supplied it will default to the defaultBotId
-###### Authorization required: yes (`userToken`)
+- *Authorization*: none.
+- *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
 
-This function upvotes a bot
+Fetches an array of users who upvoted the inputted bot
+
 ```js
-    botlister.upvoteBot('371840836423385101').then(console.log);
-    // RETURNS nothing
-
-    botlister.upvoteBot().then(console.log);
-    // ID defaults to defaultBotId
-    // RETURNS nothing
+botlister.fetchUpvotes('392470264136597516')
+    .then(console.log)
+    .catch(console.error)
+    // return [ ... { id: "371840836423385101", ...etc } ]
 ```
 
+#### fetchUser(`id`)
 
-##### `fetchUser(id)`
-###### Authorization required: no
+- *Authorization*: none.
+- *Arguments*: requires a user ID.
 
-This function returns user information
+Fetches user information
+
 ```js
-    botlister.fetchUser('392470264136597516').then(console.log);
-    // RETURNS <User Object>
+botlister.fetchUser('392470264136597516')
+    .then(console.log)
+    .catch(console.error)
+    // returns { id: "371840836423385101", ...etc }
 ```
 
+#### fetchUserBots(`id`)
 
-##### `fetchUserBots(id)`
-###### Authorization required: no
+- *Authorization*: none.
+- *Arguments*: requires a user ID.
 
-This function returns an array of user's bots
+Fetches a user's listed bots
+
 ```js
-    botlister.fetchUserBots('392470264136597516').then(console.log);
-    // RETURNS [ ... <Bot Object>]
+botlister.fetchUserBots('392470264136597516')
+    .then(console.log)
+    .catch(console.error)
+    // return [ ... { id: "371840836423385101", ...etc } ]
 ```
 
+#### upvoteBot(`id`)
 
-#### License
-##### This repository has been released under the MIT license.
-##### Repo maintained by Wright (wr1ght)
-##### Contact me on Discord: wright#0666
+- *Authorization*: requires an `userToken`.
+- *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
 
- 
+Upvotes a bot using the `userToken`
+
+```js
+botlister.upvoteBot('392470264136597516')
+    .then(console.log)
+    .catch(console.error)
+    // returns nothing
+```
+
+#### deleteBot(`id`)
+
+- *Authorization*: requires an `userToken`.
+- *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
+
+Deletes a bot using the `userToken`
+
+```js
+botlister.deleteBot('392470264136597516')
+    .then(console.log)
+    .catch(console.error)
+    // returns nothing
+```
+
+[back to top](#table-of-contents)
+
+---
+
+## Repository information
+
+Maintained by [Wright](https://github.com/wr1ght)
+
+Contact me on Discord `wright#0666`
+
+[back to top](#table-of-contents)

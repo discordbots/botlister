@@ -26,6 +26,12 @@ class Core {
         return response.stats;
     }
 
+    async fetchUpvotes(id = this.defaultBotId) {
+        if (!id) throw new Error('No ID was supplied');
+        const response = await this.https.getJSON({ url: endpoints.UPVOTE_BOT(id) });
+        return response;
+    }
+
     async updateBotStatistics(id = this.defaultBotId, statistics) {
         if (!this.apiToken) throw new Error('No API token was supplied');
         if (typeof id === 'object') {
