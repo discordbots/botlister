@@ -2,7 +2,6 @@
 
 [![npm package](https://nodei.co/npm/botlister.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/botlister/)
 
-[![Coverage](https://img.shields.io/coveralls/discordbots/botlister.svg?style=flat-square)](https://coveralls.io/r/discordbots/botlister)
 [![Dependency Status](https://img.shields.io/david/discordbots/botlister.svg?style=flat-square)](https://david-dm.org/discordbots/botlister)
 [![Known Vulnerabilities](https://snyk.io/test/npm/botlister/badge.svg?style=flat-square)](https://snyk.io/test/npm/botlister)
 [![Discord](https://img.shields.io/discord/450100127256936458.svg)](https://discord.gg/hCZwQWc)
