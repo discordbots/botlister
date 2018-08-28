@@ -2,7 +2,7 @@ const Https = require('../modules/Https');
 const endpoints = require('../utility/endpoints');
 
 class Core {
-    constructor({ apiToken, defaultBotId, userToken }) {
+    constructor({ apiToken = null, defaultBotId = null, userToken = null }) {
         this.apiToken = apiToken;
         this.defaultBotId = defaultBotId;
         this.userToken = userToken;
