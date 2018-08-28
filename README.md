@@ -1,4 +1,4 @@
-# Botlister - Javascript API wrapper for discordbotlist.com
+# Botlister - NodeJS library for discordbotlist.com
 
 [![npm package](https://nodei.co/npm/botlister.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/botlister/)
 
@@ -9,7 +9,7 @@
 
 ## Super simple to use
 
-Botlister is an easy to use, zero-dependency wrapper for the discordbotlist.com API
+Botlister is an easy to use, zero-dependency NodeJS library for the discordbotlist.com
 
 ```js
 const botlister = new (require('botlister'))({ apiToken: 'abcdef', defaultBotId: '371840836423385101' })
