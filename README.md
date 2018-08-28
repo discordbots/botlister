@@ -209,6 +209,7 @@ botlister.deleteBot('392470264136597516')
 - *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
 
 Updates bot information
+
 **Optional fields:**
 - `bot_invite` - Discord OAuth URL for your bot
 - `server_invite` - Discord invite for your bot's server
@@ -230,6 +231,7 @@ botlister.updateBotInformation('371840836423385101', { prefix: '-' })
 - *Arguments*: requires data.
 
 Adds a bot to the list
+
 **Fields:**
 - `id` - ID of your bot
 - `bot_invite` - Discord OAuth URL for your bot
