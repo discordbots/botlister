@@ -203,6 +203,49 @@ botlister.deleteBot('392470264136597516')
     // returns nothing
 ```
 
+#### updateBotInformation(`id`, `data`)
+
+- *Authorization*: requires an `userToken`.
+- *Arguments*: If no ID is inputted then it will default to the `defaultBotId` option or it will throw an error if none are present.
+
+Updates bot information
+**Optional fields:**
+- `bot_invite` - Discord OAuth URL for your bot
+- `server_invite` - Discord invite for your bot's server
+- `website` - Website for your bot
+- `long_description` - Long description
+- `short_description` - Short description
+- `prefix` - Prefix of your bot
+
+```js
+botlister.updateBotInformation('371840836423385101', { prefix: '-' })
+    .then(console.log)
+    .catch(console.error)
+    // returns nothing
+```
+
+#### addBot(`data`)
+
+- *Authorization*: requires an `userToken`.
+- *Arguments*: requires data.
+
+Adds a bot to the list
+**Fields:**
+- `id` - ID of your bot
+- `bot_invite` - Discord OAuth URL for your bot
+- `server_invite` - Discord invite for your bot's server
+- `website` - Website for your bot
+- `long_description` - Long description
+- `short_description` - Short description
+- `prefix` - Prefix of your bot
+
+```js
+botlister.addBot({ id: '666' })
+    .then(console.log)
+    .catch(console.error)
+    // returns nothing
+```
+
 [back to top](#table-of-contents)
 
 ---

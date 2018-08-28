@@ -71,6 +71,33 @@ class Core {
         return response;
     }
 
+    async updateBotInformation(id = this.defaultBotId, data) {
+        if (!this.userToken) throw new Error('No User token was supplied');
+        if (typeof id === 'object') {
+            statistics = id;
+            id = this.defaultBotId
+        };
+        if (!id) throw new Error('No ID was supplied');
+        const response = await this.https.post({
+            url: endpoints.FETCH_BOT(id),
+            data,
+            authorization: `Bearer ${this.userToken}`,
+            options: { put: true }
+        });
+        return response;
+    }
+
+    async addBot(data) {
+        if (!this.userToken) throw new Error('No User token was supplied');
+        if (!data) throw new Error('No data was supplied');
+        const response = await this.https.post({
+            url: endpoints.FETCH_ALL_BOTS(),
+            data,
+            authorization: `Bearer ${this.userToken}`,
+        });
+        return response;
+    }
+
     async fetchUser(id) {
         if (!id) throw new Error('No ID was supplied');
         const response = await this.https.getJSON({ url: endpoints.FETCH_USER(id) });

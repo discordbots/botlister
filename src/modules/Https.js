@@ -5,7 +5,8 @@ class Https {
         this.nodeHttp = require('https');
         this.defaultHeaders = {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'User-Agent': `Botlister (https://github.com/discordbots/botlister, ${require('../../package.json').version})`
         }
     }
     
