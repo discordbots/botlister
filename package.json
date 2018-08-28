@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wr1ght/botlister.git"
+    "url": "git+https://github.com/discordbots/botlister.git"
   },
   "keywords": [
     "dbl",
@@ -19,8 +19,8 @@
   "author": "Wright <delwrig@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wr1ght/botlister/issues"
+    "url": "https://github.com/discordbots/botlister/issues"
   },
-  "homepage": "https://github.com/wr1ght/botlister#readme",
+  "homepage": "https://github.com/discordbots/botlister#readme",
   "dependencies": {}
 }

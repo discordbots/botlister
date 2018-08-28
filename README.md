@@ -1,7 +1,7 @@
 
 # Botlister
 ## A Javascript wrapper for the discordbotlist.com API
-<a href="https://www.npmjs.com/package/botlister"><img src="https://img.shields.io/npm/v/botlister.svg?maxAge=3600" alt="NPM version" /></a><a href="https://www.npmjs.com/package/botlister"><img src="https://img.shields.io/npm/dt/botlister.svg?maxAge=3600" alt="NPM downloads" /></a><a href="https://david-dm.org/wr1ght/botlister"><img src="https://img.shields.io/david/wr1ght/botlister.svg?maxAge=3600" alt="Dependencies" /></a>
+<a href="https://www.npmjs.com/package/botlister"><img src="https://img.shields.io/npm/v/botlister.svg?maxAge=3600" alt="NPM version" /></a><a href="https://www.npmjs.com/package/botlister"><img src="https://img.shields.io/npm/dt/botlister.svg?maxAge=3600" alt="NPM downloads" /></a><a href="https://david-dm.org/discordbots/botlister"><img src="https://img.shields.io/david/discordbots/botlister.svg?maxAge=3600" alt="Dependencies" /></a>
 
 ###### This is a zero-dependency package.
 
