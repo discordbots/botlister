@@ -28,7 +28,7 @@ class Core {
 
     async fetchUpvotes(id = this.defaultBotId) {
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.getJSON({ url: endpoints.UPVOTE_BOT(id) });
+        const response = await this.https.getJSON({ url: endpoints.BOT_UPVOTES(id) });
         return response;
     }
 
@@ -65,7 +65,7 @@ class Core {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
         const response = await this.https.post({
-            url: endpoints.UPVOTE_BOT(id),
+            url: endpoints.BOT_UPVOTES(id),
             authorization: `Bearer ${this.userToken}`
         });
         return response;
