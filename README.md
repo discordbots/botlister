@@ -18,10 +18,12 @@ botlister.updateBotStatistics({
     users: bot.users.size,
 }).catch(console.error);
 
+// OR
 const dblBot = await botlister.fetchBot('1111');
 console.log(dblBot.statistics);
 dblBot.updateStatistics({ guilds: 1 });
-dblBot.owner.bots.map(console.log);
+
+// read docs for more coolness
 ```
 
 
