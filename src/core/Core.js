@@ -1,5 +1,7 @@
 const Https = require('../modules/Https');
-const endpoints = require('../utility/endpoints');
+const Endpoints = require('../utility/Endpoints');
+const Bot = require('../structures/Bot');
+const User = require('../structures/User');
 
 class Core {
     constructor({ apiToken = null, defaultBotId = null, userToken = null }) {
@@ -9,224 +11,209 @@ class Core {
         this.https = new Https();
     }
 
-    async fetchPopularBots() {
-        const response = await this.https.getJSON({ url: endpoints.BOTS() });
-        return response;
+    fetchPopularBots() {
+        return this.https.getJSON({ url: Endpoints.BOTS() }).then((data) => data.map(bot => new Bot(bot, this)));
     }
 
-    async fetchAllBots(skip = 0) {
-        const response = await this.https.getJSON({ url: endpoints.ALL_BOTS(skip) });
-        return response;
+    fetchAllBots(skip = 0) {
+        return this.https.getJSON({ url: Endpoints.ALL_BOTS(skip) }).then((data) => data.map(bot => new Bot(bot, this)));
     }
 
-    async searchBots(searchTerm = '') {
-        const response = await this.https.getJSON({ url: endpoints.SEARCH_BOTS(searchTerm) });
-        return response;
+    searchBots(searchTerm = '') {
+        return this.https.getJSON({ url: Endpoints.SEARCH_BOTS(searchTerm) }).then((data) => data.map(bot => new Bot(bot, this)));
     }
 
-    async fetchMyBots() {
+    fetchMyBots() {
         if (!this.userToken) throw new Error('No User token was supplied');
-        const response = await this.https.getJSON({ url: endpoints.SEARCH_BOTS(searchTerm), authorization: `Bearer ${this.userToken}` });
-        return response;
+        return this.https.getJSON({ url: Endpoints.CURRENT_USER_BOTS(), authorization: `Bearer ${this.userToken}` }).then((data) => data.map(bot => new Bot(bot, this)));
     }
 
-    async fetchBot(id = this.defaultBotId) {
+    fetchBot(id = this.defaultBotId) {
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.getJSON({ url: endpoints.BOT(id) });
-        return response;
+        return this.https.getJSON({ url: Endpoints.BOT(id) }).then(data => new Bot(data, this));
     }
 
-    async fetchBotStatistics(id = this.defaultBotId) {
+    fetchUpvoters(id = this.defaultBotId) {
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.fetchBot(id);
-        return response.stats;
+        return this.https.getJSON({ url: Endpoints.BOT_UPVOTES(id) }).then((data) => data.map(user => new User(user, this)));
     }
 
-    async fetchUpvotes(id = this.defaultBotId) {
-        if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.getJSON({ url: endpoints.BOT_UPVOTES(id) });
-        return response;
-    }
-
-    async generateBotToken(id = this.defaultBotId) {
+    generateBotToken(id = this.defaultBotId) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.getJSON({ url: endpoints.BOT_TOKEN(id) });
-        return response;
+        return this.https.getJSON({ url: Endpoints.BOT_TOKEN(id) });
     }
 
-    async updateBotStatistics(id = this.defaultBotId, statistics) {
+    updateBotStatistics(id = this.defaultBotId, statistics) {
         if (!this.apiToken) throw new Error('No API token was supplied');
         if (typeof id === 'object') {
             statistics = id;
             id = this.defaultBotId
         };
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.post({
-            url: endpoints.BOT_STATISTICS(id),
-            data: statistics,
+        return this.https.post({
+            url: Endpoints.BOT_STATISTICS(id),
+            data: {
+                shard_id: statistics.shardId,
+                guilds: statistics.guilds,
+                users: statistics.users,
+                voice_connections: statistics.voiceConnections
+            },
             authorization: `Bot ${this.apiToken}`
         });
-        return response;
     }
 
-    async resetBotStatistics(id = this.defaultBotId) {
+    resetBotStatistics(id = this.defaultBotId) {
         if (!this.apiToken) throw new Error('No API token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.delete({ url: endpoints.BOT_STATISTICS(id), authorization: `Bot ${this.apiToken}` });
-        return response;
+        return this.https.delete({ url: Endpoints.BOT_STATISTICS(id), authorization: `Bot ${this.apiToken}` });
     }
 
-    async deleteBot(id = this.defaultBotId) {
+    deleteBot(id = this.defaultBotId) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.delete({ url: endpoints.BOT(id), authorization: `Bearer ${this.userToken}` });
-        return response;
+        return this.https.delete({ url: Endpoints.BOT(id), authorization: `Bearer ${this.userToken}` });
     }
 
-    async upvoteBot(id = this.defaultBotId) {
+    upvoteBot(id = this.defaultBotId) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.post({
-            url: endpoints.BOT_UPVOTES(id),
+        return this.https.post({
+            url: Endpoints.BOT_UPVOTES(id),
             authorization: `Bearer ${this.userToken}`
         });
-        return response;
     }
 
-    async updateBotInformation(id = this.defaultBotId, data) {
+    updateBotInformation(id = this.defaultBotId, info) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (typeof id === 'object') {
-            statistics = id;
+            info = id;
             id = this.defaultBotId
         };
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.post({
-            url: endpoints.BOT(id),
-            data,
+        return this.https.post({
+            url: Endpoints.BOT(id),
+            data: {
+                short_description: info.shortDescription,
+                long_description: info.longDescription,
+                prefix: info.prefix,
+                website: info.website,
+                bot_invite: info.botInvite,
+                server_invite: info.serverInvite
+            },
             authorization: `Bearer ${this.userToken}`,
             options: { put: true }
         });
-        return response;
     }
 
-    async addBot(data) {
+    addBot(info) {
         if (!this.userToken) throw new Error('No User token was supplied');
-        if (!data) throw new Error('No data was supplied');
-        const response = await this.https.post({
-            url: endpoints.BOTS(),
-            data,
+        if (!info) throw new Error('No data was supplied');
+        return this.https.post({
+            url: Endpoints.BOTS(),
+            data: {
+                id: info.id,
+                short_description: info.shortDescription,
+                long_description: info.longDescription,
+                prefix: info.prefix,
+                website: info.website,
+                bot_invite: info.botInvite,
+                server_invite: info.serverInvite
+            },
             authorization: `Bearer ${this.userToken}`,
         });
-        return response;
     }
 
-    async fetchUser(id) {
+    fetchUser(id) {
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.getJSON({ url: endpoints.USER(id) });
-        return response;
+        return this.https.getJSON({ url: Endpoints.USER(id) }).then(data => new User(data, this));
     }
 
-    async fetchUserBots(id) {
-        if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.getJSON({ url: endpoints.USER(id) });
-        return response.bots;
-    }
-
-    async banUser(id) {
-        if (!this.userToken) throw new Error('No User token was supplied');
-        if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.post({
-            url: endpoints.ADMIN_BAN_USER(id),
-            authorization: `Bearer ${this.userToken}`,
-        });
-        return response;
-    }
-
-    async unbanUser(id) {
+    banUser(id) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.delete({
-            url: endpoints.ADMIN_BAN_USER(id),
+        return this.https.post({
+            url: Endpoints.ADMIN_BAN_USER(id),
             authorization: `Bearer ${this.userToken}`,
         });
         return response;
     }
 
-    async refreshUser(id) {
+    unbanUser(id) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.post({
-            url: endpoints.ADMIN_REFRESH_USER(id),
+        return this.https.delete({
+            url: Endpoints.ADMIN_BAN_USER(id),
             authorization: `Bearer ${this.userToken}`,
         });
-        return response;
     }
 
-    async fetchUninvitedBots() {
-        if (!this.userToken) throw new Error('No User token was supplied');
-        const response = await this.https.getJSON({
-            url: endpoints.ADMIN_UNINVITED_BOTS(),
-            authorization: `Bearer ${this.userToken}`,
-        });
-        return response;
-    }
-
-    async verifyBot(id) {
+    refreshUser(id) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.post({
-            url: endpoints.ADMIN_BOT_VERIFICATION(id),
+        return this.https.post({
+            url: Endpoints.ADMIN_REFRESH_USER(id),
             authorization: `Bearer ${this.userToken}`,
         });
-        return response;
     }
 
-    async unverifyBot(id) {
+    fetchUninvitedBots() {
+        if (!this.userToken) throw new Error('No User token was supplied');
+        return this.https.getJSON({
+            url: Endpoints.ADMIN_UNINVITED_BOTS(),
+            authorization: `Bearer ${this.userToken}`,
+        }).then(bots => bots.map(bot => new Bot(bot, this)))
+    }
+
+    verifyBot(id) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.delete({
-            url: endpoints.ADMIN_BOT_VERIFICATION(id),
+        return his.https.post({
+            url: Endpoints.ADMIN_BOT_VERIFICATION(id),
             authorization: `Bearer ${this.userToken}`,
         });
-        return response;
     }
 
-    async refreshBot(id) {
+    unverifyBot(id) {
         if (!this.userToken) throw new Error('No User token was supplied');
         if (!id) throw new Error('No ID was supplied');
-        const response = await this.https.post({
-            url: endpoints.ADMIN_REFRESH_BOT(id),
+        return this.https.delete({
+            url: Endpoints.ADMIN_BOT_VERIFICATION(id),
             authorization: `Bearer ${this.userToken}`,
         });
-        return response;
     }
 
-    async getConfiguration() {
+    refreshBot(id) {
         if (!this.userToken) throw new Error('No User token was supplied');
-        const response = await this.https.getJSON({
-            url: endpoints.ADMIN_CONFIGURATION(),
+        if (!id) throw new Error('No ID was supplied');
+        return this.https.post({
+            url: Endpoints.ADMIN_REFRESH_BOT(id),
             authorization: `Bearer ${this.userToken}`,
         });
-        return response;
     }
 
-    async lockDatabase() {
+    fetchConfiguration() {
         if (!this.userToken) throw new Error('No User token was supplied');
-        const response = await this.https.post({
-            url: endpoints.ADMIN_DATABASE_LOCK(),
+        return this.https.getJSON({
+            url: Endpoints.ADMIN_CONFIGURATION(),
             authorization: `Bearer ${this.userToken}`,
         });
-        return response;
     }
 
-    async unlockDatabase() {
+    lockDatabase() {
         if (!this.userToken) throw new Error('No User token was supplied');
-        const response = await this.https.delete({
-            url: endpoints.ADMIN_DATABASE_LOCK(),
+        return this.https.post({
+            url: Endpoints.ADMIN_DATABASE_LOCK(),
             authorization: `Bearer ${this.userToken}`,
         });
-        return response;
+    }
+
+    unlockDatabase() {
+        if (!this.userToken) throw new Error('No User token was supplied');
+        return this.https.delete({
+            url: Endpoints.ADMIN_DATABASE_LOCK(),
+            authorization: `Bearer ${this.userToken}`,
+        });
     }
 }
 
