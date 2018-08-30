@@ -16,8 +16,17 @@ class Core {
         this.defaultBotId = defaultBotId;
         this.userToken = userToken;
         this.https = new Https();
+
+        this.setBot();
     }
 
+    setBot() {
+        if (!this.defaultBotId) return;
+        this.fetchBot(this.defaultBotId).then(bot => {
+            this.bot = bot
+        })
+    }
+    
     /**
     * Fetch an array of "hot" or "popular" bots
     * @returns {Promise<Bot[]>} Resolves with an array of Bot objects
