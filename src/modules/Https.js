@@ -74,7 +74,7 @@ class Https {
             path,
             ...options
         });
-        return JSON.parse(response);
+        return JSON.parse(response) || response;
    };
 };
 
