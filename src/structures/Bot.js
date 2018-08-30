@@ -46,7 +46,7 @@ class Bot {
         this.verified = (data.verified !== undefined) ? data.verified : this.verified;
         this.upvotes = (data.upvotes !== undefined) ? data.upvotes : this.upvotes;
         this.upvoted = (data.is_upvoted !== undefined) ? data.is_upvoted : this.upvoted;
-        this.owner = (data.owner !== undefined) ? new User(data.owner, this._core) : this.owner;
+        this.owner = (data.owner !== undefined) ? (new User(data.owner, this._core)) : this.owner;
         this.statistics = (data.stats !== undefined) ? data.stats : this.statistics;
     }
 
