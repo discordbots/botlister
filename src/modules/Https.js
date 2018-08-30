@@ -23,11 +23,11 @@ class Https {
         });
     } 
 
-    async delete({ url, authorization, options = {} }) {
+    delete({ url, authorization, options = {} }) {
         const { hostname, path } = parse(url);
         let headers = { ...this.defaultHeaders };
         if (authorization) headers.Authorization = authorization;
-        return await this.request({
+        return this.request({
             method: 'DELETE',
             headers,
             hostname,
@@ -35,12 +35,12 @@ class Https {
         });
     }
 
-    async post({ url, data = {}, authorization, options = { put: null } }) {
+    post({ url, data = {}, authorization, options = { put: null } }) {
         const { hostname, path } = parse(url);
         let headers = { ...this.defaultHeaders };
         if (authorization) headers.Authorization = authorization;
         
-        return await this.request({
+        return this.request({
             method: options.put ? 'PUT' : 'POST',
             headers,
             hostname,
@@ -48,12 +48,12 @@ class Https {
         }, data);
     }
 
-    async get({ url, authorization, options = { } }) {
+    get({ url, authorization, options = { } }) {
         const { hostname, path } = parse(url);
         let headers = { ...this.defaultHeaders };
         if (authorization) headers.Authorization = authorization;
   
-        return await this.request({
+        return this.request({
             method: 'GET',
             headers,
             hostname,
@@ -62,19 +62,18 @@ class Https {
         });
    };
 
-    async getJSON({ url, authorization, options = { } }) {
+    getJSON({ url, authorization, options = { } }) {
         const { hostname, path } = parse(url);
         let headers = { ...this.defaultHeaders };
         if (authorization) headers.Authorization = authorization;
 
-        const response = await this.request({
+        return this.request({
             method: 'GET',
             headers,
             hostname,
             path,
             ...options
-        });
-        return JSON.parse(response) || response;
+        }).then(response => JSON.parse(response) || response)
    };
 };
 

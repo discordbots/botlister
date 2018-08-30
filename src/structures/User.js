@@ -1,6 +1,19 @@
 const Constants = require('../utility/Constants');
 const Bot = require('./Bot');
 
+/**
+* Represents a DBL user
+* @prop {String} id The ID of the user
+* @prop {Timestamp} createdAt Timestamp of when the user was added to DBL
+* @prop {String?} avatar The hash of the user's avatar, or null if no avatar
+* @prop {String} defaultAvatarURL The URL of the user's default avatar
+* @prop {String} avatarURL The URL of the user's avatar
+* @prop {String} username The username of the user
+* @prop {String} discriminator The discriminator of the user
+* @prop {Boolean} admin Whether the user is an administrator or not
+* @prop {Boolean} banned Whether the user is banned or not
+* @prop {Array<Bot>} bots Array of Bot objects that belong to the user
+*/
 class User {
     constructor(data, core) {
         this._core = core;
@@ -27,14 +40,26 @@ class User {
         return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.png` : this.defaultAvatarURL;
     }
 
+    /**
+    * Ban user. Requires userToken. 
+    * @returns {Promise}
+    */
     ban() {
         return this._core.banUser(this.id);
     }
 
+    /**
+    * Unban user. Requires userToken. 
+    * @returns {Promise}
+    */
     unban() {
         return this._core.unbanUser(this.id);
     }
 
+    /**
+    * Refresh user. Requires userToken. 
+    * @returns {Promise}
+    */
     refresh() {
         return this._core.refreshUser(this.id)
     }
