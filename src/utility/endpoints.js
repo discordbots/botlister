@@ -10,7 +10,6 @@ module.exports.BOT_TOKEN = (botId) => `${module.exports.BASE_URL}/bots/${botId}/
 module.exports.BOT_UPVOTES = (botId) => `${module.exports.BASE_URL}/bots/${botId}/upvotes`;
 module.exports.BOT_STATISTICS = (botId) => `${module.exports.BASE_URL}/bots/${botId}/stats`;
 module.exports.USER = (userId) => `${module.exports.BASE_URL}/bots/${botId}`;
-
 /* Admin Endpoints */
 module.exports.ADMIN_BAN_USER = (userId) => `${module.exports.BASE_URL}/users/${userId}/ban`;
 module.exports.ADMIN_REFRESH_USER = (userId) => `${module.exports.BASE_URL}/users/${userId}/refresh`;
