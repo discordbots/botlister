@@ -24,11 +24,11 @@ class User {
 
     update(data) {
         const Bot = require('./Bot');
-        this.avatar = data.avatar !== undefined ? data.avatar : this.avatar;
-        this.username = data.username !== undefined ? data.username : this.username;
-        this.discriminator = data.discriminator !== undefined ? data.discriminator : this.discriminator;
-        this.admin = data.admin !== undefined ? data.admin : this.admin;
-        this.banned = data.banned !== undefined ? data.banned : this.banned;
+        this.avatar = data.avatar || this.avatar;
+        this.username = data.username || this.username;
+        this.discriminator = data.discriminator || this.discriminator;
+        this.admin = data.admin || this.admin;
+        this.banned = data.banned || this.banned;
         this.bots = data.bots !== undefined ? data.bots.map(b => (new Bot(b, this._core))) : this.bots;
     }
 
