@@ -34,18 +34,18 @@ class Bot {
     }
 
     update(data) {
-        this.avatar = data.avatar !== undefined ? data.avatar : this.avatar;
-        this.username = data.username !== undefined ? data.username : this.username;
-        this.discriminator = data.discriminator !== undefined ? data.discriminator : this.discriminator;
-        this.shortDescription = data.short_description !== '' ? data.short_description : this.shortDescription;
-        this.longDescription = data.long_description !== '' ? data.long_description : this.longDescription;
-        this.prefix = data.prefix !== '' ? data.prefix : this.prefix;
-        this.website = data.website !== '' ? data.website : this.website;
-        this.botInvite = data.bot_invite !== '' ? data.bot_invite : this.botInvite;
-        this.serverInvite = data.server_invite !== '' ? data.server_invite : this.serverInvite;
-        this.verified = data.verified !== undefined ? data.verified : this.verified;
-        this.upvotes = data.upvotes !== undefined ? data.upvotes : this.upvotes;
-        this.upvoted = data.is_upvoted !== undefined ? data.is_upvoted : this.upvoted;
+        this.avatar = data.avatar || this.avatar;
+        this.username = data.username || this.username;
+        this.discriminator = data.discriminator || this.discriminator;
+        this.shortDescription = data.short_description || this.shortDescription;
+        this.longDescription = data.long_description || this.longDescription;
+        this.prefix = data.prefix || this.prefix;
+        this.website = data.website || this.website;
+        this.botInvite = data.bot_invite || this.botInvite;
+        this.serverInvite = data.server_invite || this.serverInvite;
+        this.verified = data.verified || this.verified;
+        this.upvotes = data.upvotes || this.upvotes;
+        this.upvoted = data.is_upvoted || this.upvoted;
     }
 
     get defaultAvatarURL() {
